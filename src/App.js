@@ -1,9 +1,12 @@
 import logo from './logo.svg'
 import './App.css'
 import { io } from 'socket.io-client'
+//import socket from "socket.io-client";
 import { useEffect, useState, useRef,useCallback } from 'react'
 import Peer from 'peerjs'
 
+//const io = require('socket.io-client')
+//console.log(io)
 const Video = ({ stream }) => {
   const localVideo = useRef()
 
@@ -28,13 +31,13 @@ function App () {
   // const othersVideos = useRef([])
 
   useEffect(() => {
-   // const newSocket = io(`http://localhost:4000/`)
-   const newSocket = io(`https://stream-squ-server.herokuapp.com/`)
+   const newSocket = io(`http://localhost:4000/`)
+   //const newSocket = io(`https://stream-squ-server.herokuapp.com/`)
     setSocket(newSocket)
-
     return () => newSocket.close()
   }, [setSocket])
   console.log('streams', streams)
+
   const myPeer = new Peer(undefined, {})
 
   // const connectToNewUser = (userId, stream) => {
@@ -69,8 +72,8 @@ function App () {
   )
 
   useEffect(() => {
-    // console.log('othersVideos', othersVideos.current)
-    console.log('socket',socket)
+   // console.log('othersVideos', othersVideos.current)
+   console.log('socket',socket)
     if (socket) {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
